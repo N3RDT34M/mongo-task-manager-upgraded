@@ -12,14 +12,64 @@ function viewDetails(taskId) {
     window.location.href = `/dashboard/showTask/${taskId}`;
 }
 
-function editTask(taskId) {
-    console.log('Modifier la tâche :', taskId);
-}
-
 function deleteTask(taskId) {
-    console.log('Supprimer la tâche :', taskId);
+  if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
+    fetch(`/API/tasks/${taskId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Tâche supprimée avec succès");
+          location.reload(); // Recharge la page pour mettre à jour la liste
+        } else {
+          alert("Erreur lors de la suppression de la tâche");
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur:", error);
+        alert("Erreur lors de la suppression de la tâche");
+      });
+  }
 }
 
 function closeDetails() {
-    document.getElementById('task-details').style.display = 'none';
+  document.getElementById("task-details").style.display = "none";
 }
+
+document
+  .getElementById("add-task-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const taskData = {
+      titre: document.getElementById("task-name").value,
+      description: document.getElementById("task-desc").value,
+      statut: "à faire",
+      priorite: "moyenne",
+      auteur: {
+        nom: "Invité",
+        prenom: "Utilisateur",
+        email: "mail@domain.exemple",
+      },
+    };
+
+    fetch("/API/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(taskData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Tâche ajoutée avec succès !");
+          location.reload(); // Recharge la page pour afficher la nouvelle tâche
+        } else {
+          throw new Error("Erreur lors de l'ajout de la tâche");
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur:", error);
+        alert("Erreur lors de l'ajout de la tâche");
+      });
+  });

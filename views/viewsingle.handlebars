@@ -23,40 +23,44 @@
         </div>
     </div>
 
-    {{#if task.sousTaches.length}}
     <div class="card mt-4">
         <div class="card-body">
             <h2 class="card-title">Sous-tâches</h2>
-            {{#each task.sousTaches}}
-                <div class="border p-3 mb-3">
-                    <p><strong>Titre :</strong> {{this.titre}}</p>
-                    <p><strong>Statut :</strong> {{this.statut}}</p>
-                    <p><strong>Échéance :</strong> {{this.echeance}}</p>
-                    <button class="btn btn-primary" onclick="markSubTaskAsComplete('{{../task._id}}', '{{this._id}}')">Marquer comme terminée</button>
-                    <button class="btn btn-danger" onclick="deleteSubTask('{{../task._id}}', '{{this._id}}')">Supprimer</button>
-                </div>
-            {{/each}}
+            {{#if task.sousTaches.length}}
+                {{#each task.sousTaches}}
+                    <div class="border p-3 mb-3">
+                        <p><strong>Titre :</strong> {{this.titre}}</p>
+                        <p><strong>Statut :</strong> {{this.statut}}</p>
+                        <p><strong>Échéance :</strong> {{this.echeance}}</p>
+                        <button class="btn btn-primary" onclick="markSubTaskAsComplete('{{../task._id}}', '{{this._id}}')">Marquer comme terminée</button>
+                        <button class="btn btn-danger" onclick="deleteSubTask('{{../task._id}}', '{{this._id}}')">Supprimer</button>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p>Aucune sous-tâche pour le moment</p>
+            {{/if}}
             <button class="btn btn-success" onclick="addSubTask('{{task._id}}')">Ajouter une sous-tâche</button>
         </div>
     </div>
-    {{/if}}
 
-    {{#if task.commentaires.length}}
     <div class="card mt-4">
         <div class="card-body">
             <h2 class="card-title">Commentaires</h2>
-            {{#each task.commentaires}}
-                <div class="border p-3 mb-3">
-                    <p><strong>{{this.auteur.prenom}} {{this.auteur.nom}}</strong> ({{this.auteur.email}})</p>
-                    <p><strong>Date :</strong> {{this.date}}</p>
-                    <p>{{this.contenu}}</p>
-                    <button class="btn btn-danger" onclick="deleteComment('{{../task._id}}', '{{this._id}}')">Supprimer</button>
-                </div>
-            {{/each}}
+            {{#if task.commentaires.length}}
+                {{#each task.commentaires}}
+                    <div class="border p-3 mb-3">
+                        <p><strong>{{this.auteur.prenom}} {{this.auteur.nom}}</strong> ({{this.auteur.email}})</p>
+                        <p><strong>Date :</strong> {{this.date}}</p>
+                        <p>{{this.contenu}}</p>
+                        <button class="btn btn-danger" onclick="deleteComment('{{../task._id}}', '{{this._id}}')">Supprimer</button>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p>Aucun commentaire pour le moment</p>
+            {{/if}}
             <button class="btn btn-success" onclick="addComment('{{task._id}}')">Ajouter un commentaire</button>
         </div>
     </div>
-    {{/if}}
 
     {{#if task.historiqueModifications.length}}
     <div class="card mt-4">
