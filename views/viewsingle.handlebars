@@ -1,0 +1,78 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{task.titre}}</h1>
+            <p><strong>Description :</strong> {{task.description}}</p>
+            <p><strong>Date de création :</strong> {{task.dateCreation}}</p>
+            <p><strong>Échéance :</strong> {{task.echeance}}</p>
+            <p><strong>Statut :</strong> <span class="badge bg-{{task.statut}}">{{task.statut}}</span></p>
+            <p><strong>Priorité :</strong> {{task.priorite}}</p>
+            <p><strong>Catégorie :</strong> {{task.categorie}}</p>
+            <p><strong>Étiquettes :</strong> 
+                {{#each task.etiquettes}} 
+                    <span class="badge bg-secondary">#{{this}}</span> 
+                {{/each}}
+            </p>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h2 class="card-title">Auteur</h2>
+            <p>{{task.auteur.prenom}} {{task.auteur.nom}} ({{task.auteur.email}})</p>
+        </div>
+    </div>
+
+    {{#if task.sousTaches.length}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h2 class="card-title">Sous-tâches</h2>
+            {{#each task.sousTaches}}
+                <div class="border p-3 mb-3">
+                    <p><strong>Titre :</strong> {{this.titre}}</p>
+                    <p><strong>Statut :</strong> {{this.statut}}</p>
+                    <p><strong>Échéance :</strong> {{this.echeance}}</p>
+                    <button class="btn btn-primary" onclick="markSubTaskAsComplete('{{../task._id}}', '{{this._id}}')">Marquer comme terminée</button>
+                    <button class="btn btn-danger" onclick="deleteSubTask('{{../task._id}}', '{{this._id}}')">Supprimer</button>
+                </div>
+            {{/each}}
+            <button class="btn btn-success" onclick="addSubTask('{{task._id}}')">Ajouter une sous-tâche</button>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if task.commentaires.length}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h2 class="card-title">Commentaires</h2>
+            {{#each task.commentaires}}
+                <div class="border p-3 mb-3">
+                    <p><strong>{{this.auteur.prenom}} {{this.auteur.nom}}</strong> ({{this.auteur.email}})</p>
+                    <p><strong>Date :</strong> {{this.date}}</p>
+                    <p>{{this.contenu}}</p>
+                    <button class="btn btn-danger" onclick="deleteComment('{{../task._id}}', '{{this._id}}')">Supprimer</button>
+                </div>
+            {{/each}}
+            <button class="btn btn-success" onclick="addComment('{{task._id}}')">Ajouter un commentaire</button>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if task.historiqueModifications.length}}
+    <div class="card mt-4">
+        <div class="card-body"></div>
+            <h2 class="card-title">Historique des modifications</h2>
+            {{#each task.historiqueModifications}}
+                <div class="border p-3 mb-3">
+                    <p><strong>Champ modifié :</strong> {{this.champModifie}}</p>
+                    <p><strong>Ancienne valeur :</strong> {{this.ancienneValeur}}</p>
+                    <p><strong>Nouvelle valeur :</strong> {{this.nouvelleValeur}}</p>
+                    <p><strong>Date :</strong> {{this.date}}</p>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+</div>
+
+<script src="/static/js/task_viewsingle.js"></script>

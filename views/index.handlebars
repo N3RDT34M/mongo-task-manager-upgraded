@@ -1,0 +1,59 @@
+<section class="mb-5">
+    <h2 class="text-center mb-4">Liste des Tâches</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group w-50">
+            <span class="input-group-text" id="filter-label">Filtrer</span>
+            <input type="text" id="filter" class="form-control" placeholder="Rechercher des tâches..." aria-label="Filtrer" aria-describedby="filter-label">
+        </div>
+        <div>
+            <label for="sort" class="form-label me-2">Trier par :</label>
+            <select id="sort" class="form-select w-auto d-inline-block">
+                <option value="name">Nom</option>
+                <option value="date">Date</option>
+                <option value="priority">Priorité</option>
+            </select>
+        </div>
+    </div>
+    <ul id="task-list" class="list-group">
+        {{#each tasks}}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+                <h3 class="h5 mb-1">{{this.name}}</h3>
+                <p class="mb-1">{{this.description}}</p>
+            </div>
+            <div>
+                <button class="btn btn-info btn-sm me-2" onclick="viewDetails('{{this._id}}')">Détails</button>
+                <button class="btn btn-warning btn-sm me-2" onclick="editTask('{{this._id}}')">Modifier</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteTask('{{this._id}}')">Supprimer</button>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</section>
+
+<section id="task-details" class="mb-5" style="display: none;">
+    <h2 class="text-center mb-4">Détails de la Tâche</h2>
+    <div id="details-content" class="border p-3 rounded">
+        <!-- Les détails seront chargés dynamiquement ici -->
+    </div>
+    <div class="text-center mt-3">
+        <button class="btn btn-secondary" onclick="closeDetails()">Fermer</button>
+    </div>
+</section>
+
+<section>
+    <h2 class="text-center mb-4">Ajouter une Nouvelle Tâche</h2>
+    <form id="add-task-form" class="border p-4 rounded">
+        <div class="mb-3">
+            <label for="task-name" class="form-label">Nom :</label>
+            <input type="text" id="task-name" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="task-desc" class="form-label">Description :</label>
+            <textarea id="task-desc" name="description" class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Ajouter la Tâche</button>
+    </form>
+</section>
+
+<script src="/static/js/task_main.js"></script>
