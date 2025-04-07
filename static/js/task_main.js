@@ -47,9 +47,9 @@ document
       statut: "à faire",
       priorite: "moyenne",
       auteur: {
-        nom: "Invité",
-        prenom: "Utilisateur",
-        email: "mail@domain.exemple",
+        nom: document.getElementById("task-author-lastname").value,
+        prenom: document.getElementById("task-author-firstname").value,
+        email: document.getElementById("task-email").value,
       },
     };
 

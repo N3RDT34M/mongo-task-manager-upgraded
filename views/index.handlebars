@@ -44,12 +44,32 @@
     <h2 class="text-center mb-4">Ajouter une Nouvelle Tâche</h2>
     <form id="add-task-form" class="border p-4 rounded">
         <div class="mb-3">
+            <h5 class="fw-bold">Infos sur la tâche</h5>
+        </div>
+        <div class="mb-3">
             <label for="task-name" class="form-label">Nom :</label>
             <input type="text" id="task-name" name="name" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="task-desc" class="form-label">Description :</label>
             <textarea id="task-desc" name="description" class="form-control" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <h5 class="fw-bold">Infos sur l'auteur</h5>
+        </div>
+        <div class="mb-3 d-flex gap-3">
+            <div class="w-25">
+                <label for="task-author-lastname" class="form-label">Nom :</label>
+                <input type="text" id="task-author-lastname" name="author_lastname" class="form-control" required>
+            </div>
+            <div class="w-25">
+                <label for="task-author-firstname" class="form-label">Prénom :</label>
+                <input type="text" id="task-author-firstname" name="author_firstname" class="form-control" required>
+            </div>
+            <div class="w-50">
+                <label for="task-email" class="form-label">Email :</label>
+                <input type="email" id="task-email" name="email" class="form-control" required>
+            </div>
         </div>
         <button type="submit" class="btn btn-success w-100">Ajouter la Tâche</button>
     </form>
