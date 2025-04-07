@@ -19,8 +19,14 @@ async function getAllTasks(req, res) {
     }
 
     let sort = {};
-    if (req.query.tri) {
-      sort[req.query.tri] = req.query.ordre === "desc" ? -1 : 1;
+    const champsTriAutorises = ["echeance", "priorite", "dateCreation"];
+    const champTri = req.query.tri;
+
+    if (champTri && champsTriAutorises.includes(champTri)) {
+      sort[champTri] = req.query.ordre === "desc" ? -1 : 1;
+    } else {
+      // Tri par défaut : date de création décroissante
+      sort.dateCreation = -1;
     }
 
     const tasks = await Task.find(query).sort(sort);
